@@ -82,7 +82,7 @@ class GuessTheNumber:
         else:
             hints.append("The number is less than or equal to 50")
         
-        print(f"\n💡 HINT: {', '.join(hints[:2])}")
+        print(f"\n HINT: {', '.join(hints[:2])}")
         self.hint_given = True
 
     def calculate_score(self, attempts_used):
@@ -92,3 +92,12 @@ class GuessTheNumber:
         
         score = (base_score - (attempts_used * 50)) * difficulty_multiplier[self.difficulty]
         return max(score, 100)
+    
+    def save_high_score(self, username, score):
+        """Save high score to file"""
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        with open(self.scores_file, 'a') as file:
+            file.write(f"{username},{score},{self.difficulty},{timestamp}\n")
+        
+        print(f" Score saved to {self.scores_file}")
