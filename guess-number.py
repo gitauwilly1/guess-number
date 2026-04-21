@@ -61,3 +61,26 @@ class GuessTheNumber:
         self.secret_number = random.randint(1, 100)
         self.hint_given = False
     
+    def give_hint(self):
+        """Provide a hint after 3 wrong attempts"""
+        if self.hint_given:
+            return
+        
+        hints = []
+        if self.secret_number % 2 == 0:
+            hints.append("The number is even")
+        else:
+            hints.append("The number is odd")
+        
+        if self.secret_number % 5 == 0:
+            hints.append("The number is divisible by 5")
+        elif self.secret_number % 3 == 0:
+            hints.append("The number is divisible by 3")
+        
+        if self.secret_number > 50:
+            hints.append("The number is greater than 50")
+        else:
+            hints.append("The number is less than or equal to 50")
+        
+        print(f"\n💡 HINT: {', '.join(hints[:2])}")
+        self.hint_given = True
