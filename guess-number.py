@@ -205,3 +205,37 @@ class GuessTheNumber:
         print(f"\n GAME OVER! You've run out of attempts.")
         print(f" The number was: {self.secret_number}")
         return False
+    
+    def play_again(self):
+        """Ask if user wants to play again"""
+        while True:
+            choice = input("\n Play again? (y/n): ").lower().strip()
+            if choice in ['y', 'yes']:
+                return True
+            elif choice in ['n', 'no']:
+                return False
+            else:
+                print("Please enter 'y' or 'n'")
+
+
+    def run(self):
+        """Main game loop"""
+        self.display_welcome()
+        
+        while True:
+            self.choose_difficulty()
+            self.play_round()
+            self.display_leaderboard()
+            
+            if not self.play_again():
+                print("\n Thanks for playing! Goodbye!")
+                break
+            
+            print("\n" + "="*50)
+            print(" NEW GAME STARTING... ")
+            print("="*50)
+
+
+if __name__ == "__main__":
+    game = GuessTheNumber()
+    game.run()
