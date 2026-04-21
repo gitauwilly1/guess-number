@@ -55,3 +55,9 @@ class GuessTheNumber:
         self.max_tries = self.difficulty_settings[self.difficulty]['tries']
         self.remaining_tries = self.max_tries
         print(f"\n {self.difficulty.upper()} mode selected! You have {self.max_tries} tries.")
+
+     def generate_number(self):
+        """Generate random number between 1 and 100"""
+        self.secret_number = random.randint(1, 100)
+        self.hint_given = False
+    
