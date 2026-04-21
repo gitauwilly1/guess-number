@@ -84,3 +84,11 @@ class GuessTheNumber:
         
         print(f"\n💡 HINT: {', '.join(hints[:2])}")
         self.hint_given = True
+
+    def calculate_score(self, attempts_used):
+        """Calculate score based on attempts used and difficulty"""
+        base_score = 1000
+        difficulty_multiplier = {'easy': 1, 'medium': 2, 'hard': 3}
+        
+        score = (base_score - (attempts_used * 50)) * difficulty_multiplier[self.difficulty]
+        return max(score, 100)
