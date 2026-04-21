@@ -28,3 +28,30 @@ class GuessTheNumber:
         print("• I'll tell you if your guess is too high or too low")
         print("• Choose your difficulty wisely!")
         print("="*50)
+
+
+    def choose_difficulty(self):
+        """Let user choose difficulty level"""
+        while True:
+            print("\n Select Difficulty Level:")
+            print("1. Easy   - 10 tries")
+            print("2. Medium - 7 tries")
+            print("3. Hard   - 5 tries")
+            
+            choice = input("\nEnter your choice (1/2/3): ").strip()
+            
+            if choice == '1':
+                self.difficulty = 'easy'
+                break
+            elif choice == '2':
+                self.difficulty = 'medium'
+                break
+            elif choice == '3':
+                self.difficulty = 'hard'
+                break
+            else:
+                print(" Invalid choice! Please enter 1, 2, or 3.")
+        
+        self.max_tries = self.difficulty_settings[self.difficulty]['tries']
+        self.remaining_tries = self.max_tries
+        print(f"\n {self.difficulty.upper()} mode selected! You have {self.max_tries} tries.")
