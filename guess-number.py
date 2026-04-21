@@ -101,3 +101,40 @@ class GuessTheNumber:
             file.write(f"{username},{score},{self.difficulty},{timestamp}\n")
         
         print(f" Score saved to {self.scores_file}")
+
+    def display_leaderboard(self):
+        """Display top 5 high scores"""
+        if not os.path.exists(self.scores_file):
+            print("\n No high scores yet! Be the first!")
+            return
+        
+        print("\n" + "="*60)
+        print(" LEADERBOARD - TOP 5 SCORES ")
+        print("="*60)
+        print(f"{'Rank':<6} {'Player':<15} {'Score':<10} {'Difficulty':<12} {'Date':<20}")
+        print("-"*60)
+        
+        try:
+            with open(self.scores_file, 'r') as file:
+                scores = []
+                for line in file:
+                    try:
+                        username, score, difficulty, timestamp = line.strip().split(',')
+                        scores.append((username, int(score), difficulty, timestamp))
+                    except:
+                        continue
+                
+                
+                scores.sort(key=lambda x: x[1], reverse=True)
+                
+               
+                for i, (username, score, difficulty, timestamp) in enumerate(scores[:5], 1):
+                    print(f"{i:<6} {username:<15} {score:<10} {difficulty.capitalize():<12} {timestamp[:10]:<20}")
+                
+        except Exception as e:
+            print(f"Error reading scores: {e}")
+        
+        print("="*60)
+
+
+    
