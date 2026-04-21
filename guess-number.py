@@ -137,4 +137,71 @@ class GuessTheNumber:
         print("="*60)
 
 
-    
+    def play_round(self):
+        """Play one round of the game"""
+        self.generate_number()
+        attempts_used = 0
+        guesses = []
+        
+        print(f"\n I'm thinking of a number between 1 and 100...")
+        print(f"You have {self.remaining_tries} attempts remaining.")
+        
+        while self.remaining_tries > 0:
+            try:
+                guess = input(f"\n Enter your guess ({self.remaining_tries} left): ").strip()
+                
+                if not guess.isdigit():
+                    print(" Please enter a valid number!")
+                    continue
+                
+                guess = int(guess)
+                
+                if guess < 1 or guess > 100:
+                    print(" Please guess a number between 1 and 100!")
+                    continue
+                
+                if guess in guesses:
+                    print(" You already guessed that number! Try a different one.")
+                    continue
+                
+                guesses.append(guess)
+                attempts_used += 1
+                self.remaining_tries -= 1
+                
+                # Check guess
+                if guess == self.secret_number:
+                    score = self.calculate_score(attempts_used)
+                    print(f"\n CONGRATULATIONS! You guessed it in {attempts_used} attempts!")
+                    print(f" The number was: {self.secret_number}")
+                    print(f" Your score: {score}")
+                    
+                    
+                    username = input("\nEnter your name for the leaderboard: ").strip()
+                    if username:
+                        self.save_high_score(username, score)
+                    
+                    return True
+                
+                elif guess < self.secret_number:
+                    print(" Too LOW! Try a higher number.")
+                else:
+                    print(" Too HIGH! Try a lower number.")
+                
+                
+                if attempts_used == 3 and not self.hint_given:
+                    self.give_hint()
+                
+                
+                if self.remaining_tries > 0:
+                    print(f" {self.remaining_tries} attempts remaining.")
+                
+            except ValueError:
+                print(" Invalid input! Please enter a number.")
+            except KeyboardInterrupt:
+                print("\n\n Game interrupted. Goodbye!")
+                return False
+        
+        
+        print(f"\n GAME OVER! You've run out of attempts.")
+        print(f" The number was: {self.secret_number}")
+        return False
